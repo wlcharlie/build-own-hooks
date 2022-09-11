@@ -1,0 +1,67 @@
+---
+meta:
+  title: useToggle Plus
+  description: A more advanced hook from useToggle.
+  tags: react, react-hook, ironman30
+---
+
+import { Tag, Flex } from "@chakra-ui/react"
+import Example from "~/libs/hooks/useToggle/Example"
+
+<Flex gap={1}>
+  {attributes.meta.tags.split(",").map((tag) => (
+    <Tag>{tag}</Tag>
+  ))}
+</Flex>
+
+# {attributes.meta.title}
+
+[鐵人賽連結]()
+
+---
+
+### Example
+
+<Example />
+
+```jsx
+function Example() {
+  const [isOpen, toggle] = useToggle()
+  return (
+    <>
+      <Button onClick={toggle}>TOGGLE</Button>
+      <Modal isOpen={isOpen} onClose={toggle} isCentered>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Hello (´・ω・`)</ModalHeader>
+          <ModalCloseButton />
+
+          <ModalFooter>
+            <Button colorScheme="blue" mr={3} onClick={toggle}>
+              Close
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+    </>
+  )
+}
+```
+
+---
+
+### useToggle Code
+
+```jsx
+function useToggle(defaultState = false) {
+  if (typeof defaultState !== "boolean") {
+    throw new Error("UseToggle: defaultState should be Boolean")
+  }
+
+  const [state, setState] = useState(defaultState)
+
+  const toggle = useCallback(() => setState((prev) => !prev), [])
+
+  return [state, toggle]
+}
+```
