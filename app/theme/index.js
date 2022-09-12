@@ -25,6 +25,7 @@ const theme = extendTheme({
       "pre:has(.hljs)": {
         borderRadius: 4,
         overflow: "hidden",
+        fontSize: "14px",
       },
       ".mdx-prose": {
         h1: {

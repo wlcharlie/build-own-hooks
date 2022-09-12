@@ -6,7 +6,7 @@ meta:
 ---
 
 import { Tag, Flex } from "@chakra-ui/react"
-import Example from "~/libs/hooks/useToggle/Example"
+import Example from "~/libs/hooks/useTogglePlus/Example"
 
 <Flex gap={1}>
   {attributes.meta.tags.split(",").map((tag) => (
@@ -18,31 +18,31 @@ import Example from "~/libs/hooks/useToggle/Example"
 
 [鐵人賽連結]()
 
+[Hook 參考來源](https://chakra-ui.com/docs/hooks/use-disclosure)
+
 ---
 
-### Example
+### Example (The Bug One)
 
 <Example />
 
 ```jsx
 function Example() {
-  const [isOpen, toggle] = useToggle()
+  const [count, setCount] = useState(0)
+  const { isOn, toggle, toggleOn, toggleOff } = useToggle({
+    onOn: () => setCount(count + 1),
+  })
   return (
     <>
-      <Button onClick={toggle}>TOGGLE</Button>
-      <Modal isOpen={isOpen} onClose={toggle} isCentered>
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>Hello (´・ω・`)</ModalHeader>
-          <ModalCloseButton />
-
-          <ModalFooter>
-            <Button colorScheme="blue" mr={3} onClick={toggle}>
-              Close
-            </Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
+      <Tag>Try to open count: {count}</Tag>
+      <Flex gap={2} sx={{ "& > *": { flex: 1 } }}>
+        <Button onClick={toggle}>TOGGLE</Button>
+        <Button onClick={toggleOn}>ON</Button>
+        <Button onClick={toggleOff}>OFF</Button>
+      </Flex>
+      <Fade in={isOn}>
+        <StyledBox>Hello (´・ω・`)</StyledBox>
+      </Fade>
     </>
   )
 }
@@ -50,18 +50,33 @@ function Example() {
 
 ---
 
-### useToggle Code
+### useToggle+ Code (The Bug One)
 
 ```jsx
-function useToggle(defaultState = false) {
-  if (typeof defaultState !== "boolean") {
+function useToggle(props = {}) {
+  const { defaultState, onOn, onOff } = props
+
+  if (defaultState !== undefined && typeof defaultState !== "boolean") {
     throw new Error("UseToggle: defaultState should be Boolean")
   }
 
-  const [state, setState] = useState(defaultState)
+  const [state, setState] = useState(defaultState || false)
 
-  const toggle = useCallback(() => setState((prev) => !prev), [])
+  const toggleOn = useCallback(() => {
+    setState(true)
+    onOn?.()
+  }, [])
 
-  return [state, toggle]
+  const toggleOff = useCallback(() => {
+    setState(false)
+    onOff?.()
+  }, [])
+
+  const toggle = useCallback(() => {
+    const action = state ? toggleOff : toggleOn
+    action()
+  }, [state])
+
+  return { isOn: state, toggle, toggleOn, toggleOff }
 }
 ```
