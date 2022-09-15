@@ -17,12 +17,15 @@ export const links = () => {
 }
 
 export const loader = async () => {
-  const hooksPostsDir = path.join(process.cwd(), "app/routes/hooks")
-  const fileNames = fs.readdirSync(hooksPostsDir)
+  const hooksPostsDir = path.join(
+    process.cwd(),
+    process.env.NODE_ENV === "development" ? "app" : "build",
+    "/routes/hooks"
+  )
+  const fileNames = ["use-toggle-normal", "use-toggle-plus", "use-event-ref"]
 
   const allPostsData = fileNames.map((fileName) => {
-    const id = fileName.replace(/\.mdx$/, "")
-    let title = id
+    let title = fileName
       .split("-")
       .map((word, index) => {
         if (index === 0) return word //since is always the word "use"
@@ -33,7 +36,7 @@ export const loader = async () => {
       .join("")
 
     return {
-      id,
+      id: fileName,
       name: title,
     }
   })
