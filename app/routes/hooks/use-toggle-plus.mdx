@@ -5,26 +5,55 @@ meta:
   tags: react, react-hook, ironman30
 ---
 
-import { Tag, Flex } from "@chakra-ui/react"
+import { useState, useCallback } from "react"
+import { Button, Fade, Flex, Tag } from "@chakra-ui/react"
+import StyledBox from "~/libs/hooks/useTogglePlus/Example/StyledBox"
 import Example from "~/libs/hooks/useTogglePlus/Example"
+import useToggleBug from "~/libs/hooks/useTogglePlus/bug"
+
+export function BugExample() {
+  const [count, setCount] = useState(0)
+  const { isOn, toggle, toggleOn, toggleOff } = useToggleBug({
+    onOn: () => setCount(count + 1),
+  })
+  return (
+    <>
+      <Tag>Try to open count: {count}</Tag>
+      <Flex gap={2} sx={{ "& > *": { flex: 1 } }}>
+        <Button onClick={toggle}>TOGGLE</Button>
+        <Button onClick={toggleOn}>ON</Button>
+        <Button onClick={toggleOff}>OFF</Button>
+      </Flex>
+      <Fade in={isOn}>
+        <StyledBox>Hello (´・ω・`)</StyledBox>
+      </Fade>
+    </>
+  )
+}
 
 <Flex gap={1}>
   {attributes.meta.tags.split(",").map((tag) => (
-    <Tag>{tag}</Tag>
+    <Tag key={tag}>{tag}</Tag>
   ))}
 </Flex>
 
 # {attributes.meta.title}
 
+<Tag colorScheme="teal" size="sm" sx={{ alignSelf: "flex-start" }}>
+  LINKS
+</Tag>
+
 [鐵人賽連結]()
 
 [Hook 參考來源](https://chakra-ui.com/docs/hooks/use-disclosure)
 
+[Example](#example)
+
+[Example (with bug)](#example-bug)
+
 ---
 
-### Example (The Bug One)
-
-<Example />
+### VIEW
 
 ```jsx
 function Example() {
@@ -48,12 +77,49 @@ function Example() {
 }
 ```
 
----
+<span id="example" />
+#### Example
 
-### useToggle+ Code (The Bug One)
+<Example />
 
 ```jsx
 function useToggle(props = {}) {
+  const { defaultState, onOn, onOff } = props
+
+  if (defaultState !== undefined && typeof defaultState !== "boolean") {
+    throw new Error("UseToggle: defaultState should be Boolean")
+  }
+  const [state, setState] = useState(defaultState || false)
+
+  const onOnEventCallback = useEventRef(onOn)
+  const onOffEventCallback = useEventRef(onOff)
+
+  const toggleOn = useCallback(() => {
+    setState(true)
+    onOnEventCallback()
+  }, [])
+
+  const toggleOff = useCallback(() => {
+    setState(false)
+    onOffEventCallback()
+  }, [])
+
+  const toggle = useCallback(() => {
+    const action = state ? toggleOff : toggleOn
+    action()
+  }, [state])
+
+  return { isOn: state, toggle, toggleOn, toggleOff }
+}
+```
+
+<span id="example-bug" />
+### Example (with bug)
+
+<BugExample />
+
+```jsx
+function useBugToggle(props = {}) {
   const { defaultState, onOn, onOff } = props
 
   if (defaultState !== undefined && typeof defaultState !== "boolean") {

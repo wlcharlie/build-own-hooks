@@ -13,6 +13,7 @@ const theme = extendTheme({
       "html, body, #root": {
         width: "100%",
         height: "100%",
+        scrollBehavior: "smooth",
       },
       body: {
         backgroundColor: "#E5E5E5",

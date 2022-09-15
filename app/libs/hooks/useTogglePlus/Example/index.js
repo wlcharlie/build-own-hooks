@@ -1,26 +1,14 @@
 import { useState } from "react"
-import { Button, Box, Fade, Flex, Tag } from "@chakra-ui/react"
-import useToggle from "."
-
-function StyledBox(props) {
-  return (
-    <Box
-      p="40px"
-      color="white"
-      mt="4"
-      bg="teal.500"
-      rounded="md"
-      shadow="md"
-      {...props}
-    />
-  )
-}
+import { Button, Fade, Flex, Tag } from "@chakra-ui/react"
+import StyledBox from "./StyledBox"
+import useToggle from ".."
 
 export default function Example() {
   const [count, setCount] = useState(0)
   const { isOn, toggle, toggleOn, toggleOff } = useToggle({
     onOn: () => setCount(count + 1),
   })
+
   return (
     <>
       <Tag>Try to open count: {count}</Tag>

@@ -1,14 +1,4 @@
-import { useState, useCallback, useEffect, useRef } from "react"
-
-function useEventRef(callback, deps) {
-  const eventRef = useRef(callback)
-
-  useEffect(() => {
-    eventRef.current = callback
-  }, deps)
-
-  return () => eventRef.current?.()
-}
+import { useState, useCallback } from "react"
 
 export default function useToggle(props = {}) {
   const { defaultState, onOn, onOff } = props
@@ -16,19 +6,17 @@ export default function useToggle(props = {}) {
   if (defaultState !== undefined && typeof defaultState !== "boolean") {
     throw new Error("UseToggle: defaultState should be Boolean")
   }
-  const [state, setState] = useState(defaultState || false)
 
-  const onOnEventCallback = useEventRef(onOn)
-  const onOffEventCallback = useEventRef(onOff)
+  const [state, setState] = useState(defaultState || false)
 
   const toggleOn = useCallback(() => {
     setState(true)
-    onOnEventCallback()
+    onOn?.()
   }, [])
 
   const toggleOff = useCallback(() => {
     setState(false)
-    onOffEventCallback()
+    onOff?.()
   }, [])
 
   const toggle = useCallback(() => {
