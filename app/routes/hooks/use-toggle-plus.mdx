@@ -7,6 +7,8 @@ meta:
 
 import { useState, useCallback } from "react"
 import { Button, Fade, Flex, Tag } from "@chakra-ui/react"
+import PostTags from "~/components/PostTags"
+import LinkTag from "~/components/LinkTag"
 import StyledBox from "~/libs/hooks/useTogglePlus/Example/StyledBox"
 import Example from "~/libs/hooks/useTogglePlus/Example"
 import useToggleBug from "~/libs/hooks/useTogglePlus/bug"
@@ -31,17 +33,15 @@ export function BugExample() {
   )
 }
 
-<Flex gap={1}>
-  {attributes.meta.tags.split(",").map((tag) => (
-    <Tag key={tag}>{tag}</Tag>
-  ))}
-</Flex>
+<PostTags tags={attributes.meta.tags} />
 
 # {attributes.meta.title}
 
-<Tag colorScheme="teal" size="sm" sx={{ alignSelf: "flex-start" }}>
-  LINKS
-</Tag>
+#### {attributes.meta.description}
+
+---
+
+<LinkTag />
 
 [鐵人賽連結]()
 
@@ -52,30 +52,6 @@ export function BugExample() {
 [Example (with bug)](#example-bug)
 
 ---
-
-### VIEW
-
-```jsx
-function Example() {
-  const [count, setCount] = useState(0)
-  const { isOn, toggle, toggleOn, toggleOff } = useToggle({
-    onOn: () => setCount(count + 1),
-  })
-  return (
-    <>
-      <Tag>Try to open count: {count}</Tag>
-      <Flex gap={2} sx={{ "& > *": { flex: 1 } }}>
-        <Button onClick={toggle}>TOGGLE</Button>
-        <Button onClick={toggleOn}>ON</Button>
-        <Button onClick={toggleOff}>OFF</Button>
-      </Flex>
-      <Fade in={isOn}>
-        <StyledBox>Hello (´・ω・`)</StyledBox>
-      </Fade>
-    </>
-  )
-}
-```
 
 <span id="example" />
 #### Example
@@ -144,5 +120,31 @@ function useBugToggle(props = {}) {
   }, [state])
 
   return { isOn: state, toggle, toggleOn, toggleOff }
+}
+```
+
+---
+
+### VIEW
+
+```jsx
+function Example() {
+  const [count, setCount] = useState(0)
+  const { isOn, toggle, toggleOn, toggleOff } = useToggle({
+    onOn: () => setCount(count + 1),
+  })
+  return (
+    <>
+      <Tag>Try to open count: {count}</Tag>
+      <Flex gap={2} sx={{ "& > *": { flex: 1 } }}>
+        <Button onClick={toggle}>TOGGLE</Button>
+        <Button onClick={toggleOn}>ON</Button>
+        <Button onClick={toggleOff}>OFF</Button>
+      </Flex>
+      <Fade in={isOn}>
+        <StyledBox>Hello (´・ω・`)</StyledBox>
+      </Fade>
+    </>
+  )
 }
 ```

@@ -5,14 +5,11 @@ meta:
   tags: react, react-hook, ironman30
 ---
 
-import { Tag, Flex } from "@chakra-ui/react"
+import PostTags from "~/components/PostTags"
+import LinkTag from "~/components/LinkTag"
 import Example from "~/libs/hooks/useToggle/Example"
 
-<Flex gap={1}>
-  {attributes.meta.tags.split(",").map((tag) => (
-    <Tag key={tag}>{tag}</Tag>
-  ))}
-</Flex>
+<PostTags tags={attributes.meta.tags} />
 
 # {attributes.meta.title}
 
@@ -20,11 +17,27 @@ import Example from "~/libs/hooks/useToggle/Example"
 
 ---
 
-<Tag colorScheme="teal" size="sm" sx={{ alignSelf: "flex-start" }}>
-  LINKS
-</Tag>
+<LinkTag />
 
 [鐵人賽連結]()
+
+---
+
+### useToggle Code
+
+```jsx
+function useToggle(defaultState = false) {
+  if (typeof defaultState !== "boolean") {
+    throw new Error("UseToggle: defaultState should be Boolean")
+  }
+
+  const [state, setState] = useState(defaultState)
+
+  const toggle = useCallback(() => setState((prev) => !prev), [])
+
+  return [state, toggle]
+}
+```
 
 ---
 
@@ -53,23 +66,5 @@ function Example() {
       </Modal>
     </>
   )
-}
-```
-
----
-
-### useToggle Code
-
-```jsx
-function useToggle(defaultState = false) {
-  if (typeof defaultState !== "boolean") {
-    throw new Error("UseToggle: defaultState should be Boolean")
-  }
-
-  const [state, setState] = useState(defaultState)
-
-  const toggle = useCallback(() => setState((prev) => !prev), [])
-
-  return [state, toggle]
 }
 ```

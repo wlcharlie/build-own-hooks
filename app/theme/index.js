@@ -23,6 +23,9 @@ const theme = extendTheme({
         margin: "8px 0",
         borderColor: chakraTheme.colors.blackAlpha[200],
       },
+      a: {
+        textDecoration: "underline",
+      },
       "pre:has(.hljs)": {
         borderRadius: 4,
         overflow: "hidden",

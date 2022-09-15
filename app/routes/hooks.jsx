@@ -48,7 +48,11 @@ export default function HooksIndex() {
     <Flex>
       <Stack bgColor="white" pt={2} px={4} position="sticky" top="0" h="100vh">
         {links.map((link) => (
-          <Link key={link.id} to={`/hooks/${link.id}`}>
+          <Link
+            key={link.id}
+            to={`/hooks/${link.id}`}
+            style={{ textDecoration: "none" }}
+          >
             {link.name}
           </Link>
         ))}
