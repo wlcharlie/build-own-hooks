@@ -22,16 +22,19 @@ export const loader = async () => {
 
   const allPostsData = fileNames.map((fileName) => {
     const id = fileName.replace(/\.mdx$/, "")
-    const [prefix, suffix, symbol] = id.split("-")
-    let title = suffix.charAt(0).toUpperCase() + suffix.slice(1)
-
-    if (symbol === "plus") {
-      title += "+"
-    }
+    let title = id
+      .split("-")
+      .map((word, index) => {
+        if (index === 0) return word //since is always the word "use"
+        if (word === "plus") return "+"
+        if (word === "normal") return ""
+        return word.charAt(0).toUpperCase() + word.slice(1)
+      })
+      .join("")
 
     return {
       id,
-      name: prefix + title,
+      name: title,
     }
   })
 
