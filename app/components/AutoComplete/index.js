@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useRef } from "react"
 import {
   Input,
   InputGroup,
@@ -14,6 +14,7 @@ import {
   Progress,
 } from "@chakra-ui/react"
 import { ChevronDownIcon, ChevronUpIcon } from "@chakra-ui/icons"
+
 import useToggle from "~/libs/hooks/useTogglePlus"
 
 export default function AutoComplete({
@@ -40,9 +41,10 @@ export default function AutoComplete({
       isOpen={isOn}
       onClose={toggleOff}
       matchWidth
-      closeOnBlur={false}
+      closeOnBlur={true}
       isLazy
       lazyBehavior="keepMounted"
+      autoFocus={false}
     >
       <PopoverAnchor>
         <InputGroup>
@@ -85,6 +87,7 @@ export default function AutoComplete({
                     No option
                   </Text>
                 )}
+                <Button onClick={toggleOff}>Close</Button>
               </>
             )}
           </Stack>
