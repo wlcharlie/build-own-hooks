@@ -22,7 +22,14 @@ export const loader = async () => {
     process.env.NODE_ENV === "development" ? "app" : "build",
     "/routes/hooks"
   )
-  const fileNames = ["use-toggle-normal", "use-toggle-plus", "use-event-ref"]
+  const fileNames = [
+    "use-toggle-normal",
+    "use-toggle-plus",
+    "use-event-ref",
+    "use-safe-effect",
+    "use-event-control",
+    "use-debounce",
+  ]
 
   const allPostsData = fileNames.map((fileName) => {
     let title = fileName

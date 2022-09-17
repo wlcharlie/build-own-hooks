@@ -1,0 +1,27 @@
+---
+meta:
+  title: useSafeEffect
+  description: A Hook to decide use useEffect or useLayoutEffect depending on enviorment.
+  tags: react, react-hook, ironman30
+---
+
+import PostTags from "~/components/PostTags"
+import LinkTag from "~/components/LinkTag"
+
+<PostTags tags={attributes.meta.tags} />
+
+# {attributes.meta.title}
+
+#### {attributes.meta.description}
+
+---
+
+<LinkTag />
+
+---
+
+```jsx
+function useSafeEffect() {
+  return typeof window !== "undefined" ? useLayoutEffect : useEffect
+}
+```
