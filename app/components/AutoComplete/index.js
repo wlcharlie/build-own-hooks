@@ -29,13 +29,14 @@ export default function AutoComplete({
 
   const [displayValue, setDisplayValue] = useState("")
 
-  const handleChoose = (value) => () => {
+  const handleChoose = (newValue) => () => {
     toggleOff()
-    onChange(value)
+    onChange(newValue)
     onInputChange("")
-    setDisplayValue(value)
+    setDisplayValue(newValue)
   }
 
+  //再包一個容器並用click out listener
   return (
     <Popover
       isOpen={isOn}
@@ -53,7 +54,10 @@ export default function AutoComplete({
             placeholder="type to search"
             onFocus={toggleOn}
             value={inputValue || displayValue}
-            onChange={(e) => onInputChange(e.target.value)}
+            onChange={(e) => {
+              onInputChange(e.target.value)
+              onChange("")
+            }}
           />
           <InputRightElement pointerEvents="none">
             <IconButton
@@ -78,6 +82,7 @@ export default function AutoComplete({
                     variant="ghost"
                     justifyContent="left"
                     onClick={handleChoose(item)}
+                    sx={{ bgColor: value === item ? "teal.200" : "unset" }}
                   >
                     {item}
                   </Button>

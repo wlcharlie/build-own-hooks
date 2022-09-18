@@ -70,7 +70,7 @@ export default function HooksIndex() {
       <Container
         maxW="container.md"
         pt={5}
-        mb={5}
+        mb="200px"
         flex="1"
         display="flex"
         gap={2}

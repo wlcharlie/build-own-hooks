@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react"
 
-export default function useDebounce(cb, delay, deps) {
+export default function useDebounce(cb, delay = 250, deps) {
   const initRef = useRef(true)
   const [isPending, setIsPending] = useState(false)
 

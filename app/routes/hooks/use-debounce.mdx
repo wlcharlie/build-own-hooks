@@ -8,6 +8,7 @@ meta:
 import PostTags from "~/components/PostTags"
 import LinkTag from "~/components/LinkTag"
 import Example from "~/libs/hooks/useDebounce/Example"
+import Example2 from "~/libs/hooks/useDebounce/Example/noDebounce"
 
 <PostTags tags={attributes.meta.tags} />
 
@@ -21,4 +22,38 @@ import Example from "~/libs/hooks/useDebounce/Example"
 
 ---
 
+```jsx
+function useDebounce(cb, delay, deps) {
+  const initRef = useRef(true)
+  const [isPending, setIsPending] = useState(false)
+
+  useEffect(() => {
+    if (initRef.current) {
+      initRef.current = false
+      return
+    }
+
+    setIsPending(true)
+    const timeout = setTimeout(() => {
+      cb()
+      setIsPending(false)
+    }, delay)
+
+    return () => clearTimeout(timeout)
+  }, deps)
+
+  return isPending
+}
+```
+
+---
+
+### Example
+
 <Example />
+
+---
+
+### Regular Version (no debounce)
+
+<Example2 />

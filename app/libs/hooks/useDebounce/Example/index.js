@@ -28,6 +28,10 @@ export default function Example() {
           <Tag colorScheme="green">delayInput</Tag>
           <Text>{delayInput}</Text>
         </HStack>
+        <HStack>
+          <Tag colorScheme="green">choose</Tag>
+          <Text>{choose}</Text>
+        </HStack>
         <HStack sx={{ opacity: isLoading ? 1 : 0.2 }}>
           <Tag colorScheme="pink">setTimeout</Tag>
           <Text>{isLoading ? "pending" : "idle"}</Text>
