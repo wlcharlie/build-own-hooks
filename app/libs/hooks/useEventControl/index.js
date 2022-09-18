@@ -1,14 +1,12 @@
 import { useCallback, useEffect, useRef, useState } from "react"
-import useEventRef from "../useEventRef"
 
 //目前的寫法是debounce for event ?
 export default function useEventControl(cb, delay) {
   const timeoutRef = useRef(null)
   const [isPending, setIsPending] = useState(false)
-  const eventCbRef = useEventRef(cb)
-  const argsRef = useRef({})
+  const argsRef = useRef(null)
 
-  const debounce = useCallback((...args) => {
+  const startEvent = useCallback((...args) => {
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current)
     }
@@ -16,7 +14,7 @@ export default function useEventControl(cb, delay) {
     setIsPending(true)
   }, [])
 
-  const cancel = useCallback(() => {
+  const cancelEvent = useCallback(() => {
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current)
     }
@@ -26,19 +24,15 @@ export default function useEventControl(cb, delay) {
   useEffect(() => {
     if (isPending) {
       timeoutRef.current = setTimeout(() => {
-        eventCbRef(...argsRef.current)
+        cb(...argsRef.current)
         setIsPending(false)
       }, delay)
     }
 
-    return () => {
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current)
-      }
-    }
+    return () => clearTimeout(timeoutRef.current)
   }, [isPending])
 
-  return [debounce, isPending, cancel]
+  return [startEvent, isPending, cancelEvent]
 }
 
 // export default function useDebounce() {

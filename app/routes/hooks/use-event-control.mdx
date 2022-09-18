@@ -21,4 +21,48 @@ import Example from "~/libs/hooks/useEventControl/Example"
 
 ---
 
+```jsx
+function useEventControl(cb, delay = 2000) {
+  const timeoutRef = useRef(null)
+  const [isPending, setIsPending] = useState(false)
+  const argsRef = useRef({})
+
+  const debounce = useCallback((...args) => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current)
+    }
+    argsRef.current = args
+    setIsPending(true)
+  }, [])
+
+  const cancel = useCallback(() => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current)
+    }
+    setIsPending(false)
+  }, [])
+
+  useEffect(() => {
+    if (isPending) {
+      timeoutRef.current = setTimeout(() => {
+        cb(...argsRef.current)
+        setIsPending(false)
+      }, delay)
+    }
+
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current)
+      }
+    }
+  }, [isPending])
+
+  return [debounce, isPending, cancel]
+}
+```
+
+---
+
+### Example
+
 <Example />

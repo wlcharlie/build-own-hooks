@@ -1,19 +1,19 @@
 import { Button, Stack } from "@chakra-ui/react"
 import useEventControl from ".."
 
-export default function Example() {
-  const [debounce, isPending, cancel] = useEventControl(handleClick, 2000)
+function showAlert(msg) {
+  alert("Message:" + msg)
+}
 
-  function handleClick(a) {
-    alert("AA" + a)
-  }
+export default function Example() {
+  const [startEvent, isPending, cancelEvent] = useEventControl(showAlert, 2000)
 
   return (
     <Stack>
-      <Button onClick={() => debounce("YOOO")} isLoading={isPending}>
+      <Button onClick={() => startEvent("YO")} isLoading={isPending}>
         TRIGGER
       </Button>
-      <Button onClick={cancel}>CANCEL</Button>
+      <Button onClick={cancelEvent}>CANCEL</Button>
     </Stack>
   )
 }
