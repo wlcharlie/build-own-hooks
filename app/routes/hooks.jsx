@@ -29,6 +29,7 @@ export const loader = async () => {
     "use-safe-effect",
     "use-event-control",
     "use-debounce",
+    "use-throttle",
   ]
 
   const allPostsData = fileNames.map((fileName) => {
