@@ -5,6 +5,7 @@ meta:
   tags: react, react-hook, ironman30
 ---
 
+import { Table, Thead, Tbody, Tr, Th, Td, TableContainer, Code } from "@chakra-ui/react"
 import PostTags from "~/components/PostTags"
 import LinkTag from "~/components/LinkTag"
 import Example from "~/libs/hooks/useToggle/Example"
@@ -19,11 +20,9 @@ import Example from "~/libs/hooks/useToggle/Example"
 
 <LinkTag />
 
-[鐵人賽連結]()
+[鐵人賽連結](https://ithelp.ithome.com.tw/articles/10295552)
 
 ---
-
-### useToggle Code
 
 ```jsx
 function useToggle(defaultState = false) {
@@ -33,11 +32,70 @@ function useToggle(defaultState = false) {
 
   const [state, setState] = useState(defaultState)
 
-  const toggle = useCallback(() => setState((prev) => !prev), [])
+  const toggle = useCallback(() => setState(prev => !prev), [])
 
   return [state, toggle]
 }
 ```
+
+#### Params
+
+<TableContainer bgColor="#00000010" borderRadius="4px">
+  <Table sx={{ "& *": { borderBottomColor: "#00000010!important" } }}>
+    <Thead>
+      <Tr>
+        <Th>name</Th>
+        <Th>type</Th>
+        <Th textAlign="right">description</Th>
+      </Tr>
+    </Thead>
+    <Tbody>
+      <Tr>
+        <Td>
+          <Code>defaultState</Code>
+        </Td>
+        <Td>
+          <Code>boolean</Code>
+        </Td>
+        <Td textAlign="right">default as false</Td>
+      </Tr>
+    </Tbody>
+  </Table>
+</TableContainer>
+
+#### Return
+
+<TableContainer bgColor="#00000010" borderRadius="4px">
+  <Table sx={{ "& *": { borderBottomColor: "#00000010!important" } }}>
+    <Thead>
+      <Tr>
+        <Th>name</Th>
+        <Th>type</Th>
+        <Th textAlign="right">description</Th>
+      </Tr>
+    </Thead>
+    <Tbody>
+      <Tr>
+        <Td>
+          <Code>state</Code>
+        </Td>
+        <Td>
+          <Code>boolean</Code>
+        </Td>
+        <Td textAlign="right"></Td>
+      </Tr>
+      <Tr>
+        <Td>
+          <Code>toggle</Code>
+        </Td>
+        <Td>
+          <Code>function</Code>
+        </Td>
+        <Td textAlign="right">to trigger the state</Td>
+      </Tr>
+    </Tbody>
+  </Table>
+</TableContainer>
 
 ---
 

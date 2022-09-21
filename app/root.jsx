@@ -1,14 +1,7 @@
 import React, { useContext, useEffect } from "react"
 import { withEmotionCache } from "@emotion/react"
 import { ChakraProvider } from "@chakra-ui/react"
-import {
-  Links,
-  LiveReload,
-  Meta,
-  Outlet,
-  Scripts,
-  ScrollRestoration,
-} from "@remix-run/react"
+import { Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration } from "@remix-run/react"
 
 import theme from "./theme"
 
@@ -16,7 +9,7 @@ import { ServerStyleContext, ClientStyleContext } from "./context"
 
 export const meta = () => ({
   charset: "utf-8",
-  title: "New Remix App",
+  title: "Build Own Hooks",
   viewport: "width=device-width,initial-scale=1",
 })
 
@@ -42,7 +35,7 @@ const Document = withEmotionCache(({ children }, emotionCache) => {
     // re-inject tags
     const tags = emotionCache.sheet.tags
     emotionCache.sheet.flush()
-    tags.forEach((tag) => {
+    tags.forEach(tag => {
       emotionCache.sheet._insertTag(tag)
     })
     // reset cache to reapply global styles
