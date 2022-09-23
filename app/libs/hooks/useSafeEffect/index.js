@@ -1,5 +1,6 @@
 import { useEffect, useLayoutEffect } from "react"
 
-export default function useSafeEffect() {
-  return typeof window !== "undefined" ? useLayoutEffect : useEffect
-}
+const useSafeEffect =
+  typeof window !== "undefined" ? useLayoutEffect : useEffect
+
+export default useSafeEffect

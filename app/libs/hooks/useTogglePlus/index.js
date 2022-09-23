@@ -1,15 +1,5 @@
-import { useState, useCallback, useEffect, useRef } from "react"
-
-//TODO 改成已經建立好的版本
-function useEventRef(callback, deps) {
-  const eventRef = useRef(callback)
-
-  useEffect(() => {
-    eventRef.current = callback
-  }, deps)
-
-  return () => eventRef.current?.()
-}
+import { useState, useCallback } from "react"
+import useEventRef from "~/libs/hooks/useEventRef"
 
 export default function useToggle(props = {}) {
   const { defaultState, onOn, onOff } = props
