@@ -21,7 +21,6 @@ import LinkTag from "~/components/LinkTag"
 ---
 
 ```jsx
-function useSafeEffect() {
-  return typeof window !== "undefined" ? useLayoutEffect : useEffect
-}
+const useSafeEffect =
+  typeof window !== "undefined" ? useLayoutEffect : useEffect
 ```
