@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react"
 
-//目前的寫法是debounce for event ?
-export default function useEventControl(cb, delay) {
+export default function useEventControl(cb, delay = 2000) {
   const timeoutRef = useRef(null)
   const [isPending, setIsPending] = useState(false)
   const argsRef = useRef(null)

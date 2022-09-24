@@ -5,6 +5,16 @@ meta:
   tags: react, react-hook, ironman30
 ---
 
+import {
+  Table,
+  Thead,
+  Tbody,
+  Tr,
+  Th,
+  Td,
+  TableContainer,
+  Code,
+} from "@chakra-ui/react"
 import PostTags from "~/components/PostTags"
 import LinkTag from "~/components/LinkTag"
 import Example from "~/libs/hooks/useEventControl/Example"
@@ -19,15 +29,106 @@ import Example from "~/libs/hooks/useEventControl/Example"
 
 <LinkTag />
 
+[鐵人賽連結](https://ithelp.ithome.com.tw/articles/10297978)
+
+---
+
+```jsx
+const [startEvent, isPending, cancelEvent] = useEventControl(cb, delay)
+```
+
+#### Params
+
+<TableContainer bgColor="#00000010" borderRadius="4px">
+  <Table sx={{ "& *": { borderBottomColor: "#00000010!important" } }}>
+    <Thead>
+      <Tr>
+        <Th>name</Th>
+        <Th>type</Th>
+        <Th textAlign="right">description</Th>
+      </Tr>
+    </Thead>
+    <Tbody>
+      <Tr>
+        <Td>
+          <Code>cb</Code>
+        </Td>
+        <Td>
+          <Code>function</Code>
+        </Td>
+        <Td textAlign="right" whiteSpace="pre-wrap">
+          {
+            "After the startEvent function been call, callback will be fired after the setTimeout timer expires."
+          }
+        </Td>
+      </Tr>
+      <Tr>
+        <Td>
+          <Code>delay</Code>
+        </Td>
+        <Td>
+          <Code>number</Code>
+        </Td>
+        <Td textAlign="right">ms (unit), default as 2000ms</Td>
+      </Tr>
+    </Tbody>
+  </Table>
+</TableContainer>
+
+#### Return
+
+<TableContainer bgColor="#00000010" borderRadius="4px">
+  <Table sx={{ "& *": { borderBottomColor: "#00000010!important" } }}>
+    <Thead>
+      <Tr>
+        <Th>name</Th>
+        <Th>type</Th>
+        <Th textAlign="right">description</Th>
+      </Tr>
+    </Thead>
+    <Tbody>
+      <Tr>
+        <Td>
+          <Code>startEvent</Code>
+        </Td>
+        <Td>
+          <Code>function</Code>
+        </Td>
+        <Td textAlign="right" whiteSpace="pre-wrap">
+          {"To start the event, will trigger setTimeout timer to count down."}
+        </Td>
+      </Tr>
+      <Tr>
+        <Td>
+          <Code>isPending</Code>
+        </Td>
+        <Td>
+          <Code>boolean</Code>
+        </Td>
+        <Td textAlign="right"></Td>
+      </Tr>
+      <Tr>
+        <Td>
+          <Code>cancelEvent</Code>
+        </Td>
+        <Td>
+          <Code>function</Code>
+        </Td>
+        <Td textAlign="right">To cancel the event.</Td>
+      </Tr>
+    </Tbody>
+  </Table>
+</TableContainer>
+
 ---
 
 ```jsx
 function useEventControl(cb, delay = 2000) {
   const timeoutRef = useRef(null)
   const [isPending, setIsPending] = useState(false)
-  const argsRef = useRef({})
+  const argsRef = useRef(null)
 
-  const debounce = useCallback((...args) => {
+  const startEvent = useCallback((...args) => {
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current)
     }
@@ -35,7 +136,7 @@ function useEventControl(cb, delay = 2000) {
     setIsPending(true)
   }, [])
 
-  const cancel = useCallback(() => {
+  const cancelEvent = useCallback(() => {
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current)
     }
@@ -50,14 +151,10 @@ function useEventControl(cb, delay = 2000) {
       }, delay)
     }
 
-    return () => {
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current)
-      }
-    }
+    return () => clearTimeout(timeoutRef.current)
   }, [isPending])
 
-  return [debounce, isPending, cancel]
+  return [startEvent, isPending, cancelEvent]
 }
 ```
 
