@@ -5,6 +5,16 @@ meta:
   tags: react, react-hook, ironman30
 ---
 
+import {
+  Table,
+  Thead,
+  Tbody,
+  Tr,
+  Th,
+  Td,
+  TableContainer,
+  Code,
+} from "@chakra-ui/react"
 import PostTags from "~/components/PostTags"
 import LinkTag from "~/components/LinkTag"
 import Example from "~/libs/hooks/useDebounce/Example"
@@ -19,6 +29,8 @@ import Example2 from "~/libs/hooks/useDebounce/Example/noDebounce"
 ---
 
 <LinkTag />
+
+[鐵人賽連結](https://ithelp.ithome.com.tw/articles/10297565)
 
 ---
 
@@ -45,6 +57,78 @@ function useDebounce(cb, delay, deps) {
   return isPending
 }
 ```
+
+---
+
+#### Params
+
+<TableContainer bgColor="#00000010" borderRadius="4px">
+  <Table sx={{ "& *": { borderBottomColor: "#00000010!important" } }}>
+    <Thead>
+      <Tr>
+        <Th>name</Th>
+        <Th>type</Th>
+        <Th textAlign="right">description</Th>
+      </Tr>
+    </Thead>
+    <Tbody>
+      <Tr>
+        <Td>
+          <Code>cb</Code>
+        </Td>
+        <Td>
+          <Code>function</Code>
+        </Td>
+        <Td textAlign="right">
+          callback function to fire depends on setTimeout
+        </Td>
+      </Tr>
+      <Tr>
+        <Td>
+          <Code>delay</Code>
+        </Td>
+        <Td>
+          <Code>number</Code>
+        </Td>
+        <Td textAlign="right">ms (unit), default as 250ms</Td>
+      </Tr>
+      <Tr>
+        <Td>
+          <Code>deps</Code>
+        </Td>
+        <Td>
+          <Code>array</Code>
+        </Td>
+        <Td textAlign="right">same as useEffect deps</Td>
+      </Tr>
+    </Tbody>
+  </Table>
+</TableContainer>
+
+#### Return
+
+<TableContainer bgColor="#00000010" borderRadius="4px">
+  <Table sx={{ "& *": { borderBottomColor: "#00000010!important" } }}>
+    <Thead>
+      <Tr>
+        <Th>name</Th>
+        <Th>type</Th>
+        <Th textAlign="right">description</Th>
+      </Tr>
+    </Thead>
+    <Tbody>
+      <Tr>
+        <Td>
+          <Code>isPending</Code>
+        </Td>
+        <Td>
+          <Code>boolean</Code>
+        </Td>
+        <Td textAlign="right"></Td>
+      </Tr>
+    </Tbody>
+  </Table>
+</TableContainer>
 
 ---
 
