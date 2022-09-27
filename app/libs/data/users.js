@@ -22,3 +22,49 @@ export const getUsers = (query) => {
 
   return result
 }
+
+const list = {
+  Charlie: "0002",
+  Danny: "0005",
+  Hugh: "0008",
+  YT: "0015",
+  "0002": "Charlie",
+  "0005": "Danny",
+  "0008": "Hugh",
+  "0015": "YT",
+}
+
+export const getUser = (username) => {
+  return new Promise((resolve, reject) => {
+    const random = Math.floor(Math.random() * 10) + 1
+    setTimeout(() => {
+      if (!list[username]) {
+        reject(new Error("Oops! User not existed!"))
+      }
+
+      if (random > 3) {
+        resolve({ username, token: list[username] })
+        return
+      }
+
+      reject(
+        new Error(
+          "Oops! Just mocking random error(typo or expired situation), try again?"
+        )
+      )
+    }, 1000)
+  })
+}
+
+export const getMe = (token) => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      if (!list[token]) {
+        reject(new Error("Oops! User not existed!"))
+      }
+
+      resolve({ username: list[token], token })
+      return
+    }, 1000)
+  })
+}
