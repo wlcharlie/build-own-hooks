@@ -22,7 +22,8 @@
     "react-dom": "^18.2.0",
     "react-icons": "^4.4.0",
     "rehype-highlight": "^5.0.2",
-    "remark-toc": "^8.0.1"
+    "remark-toc": "^8.0.1",
+    "remix-utils": "^3.3.0"
   },
   "devDependencies": {
     "@remix-run/dev": "^1.7.0",
