@@ -8,7 +8,7 @@ export default function DemoOne() {
 
   return (
     <Stack gap={3}>
-      <Text>Hello {me.username}! Welcome!</Text>
+      <Text>Hello {me.username}!</Text>
       <Text>
         You are at the page of demo one, some main stuff will might be here.
       </Text>

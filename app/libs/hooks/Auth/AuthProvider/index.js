@@ -1,11 +1,14 @@
+import { useLocation } from "@remix-run/react"
 import {
   useReducer,
   useMemo,
   createContext,
+  useState,
   useContext,
   useEffect,
   useCallback,
 } from "react"
+import { Skeleton } from "@chakra-ui/react"
 import useEventRef from "~/libs/hooks/useEventRef"
 
 const AuthContext = createContext()
@@ -33,15 +36,20 @@ export const AuthProvider = ({
   initValidation,
   debug = false,
 }) => {
+  const location = useLocation()
+  console.log(location)
   const onLoginCallback = useEventRef(onLogin)
   const onLogoutCallback = useEventRef(onLogout)
   const [state, dispatch] = useReducer(authReducer, { isAuth: false })
+
+  const [validating, setValidating] = useState(false)
 
   if (debug) {
     console.log("AuthProvider:", state)
   }
 
   useEffect(() => {
+    console.log("RE-VALI")
     if (initValidation) {
       initValidation()
       return
@@ -54,25 +62,31 @@ export const AuthProvider = ({
         return
       }
 
+      setValidating(true)
       try {
         const data = await validation?.(storageToken)
-        handleLogin(data)
+        dispatch({ type: "LOGIN", payload: data })
       } catch (error) {
-        localStorage.clear("token")
+        console.log(error.message)
         handleLogout()
       }
+      setValidating(false)
     }
 
     defaultValidation()
-  }, [])
+  }, [location.pathname])
 
   const handleLogin = useCallback((data) => {
     dispatch({ type: "LOGIN", payload: data })
+    if (localStorageKey) {
+      localStorage.setItem(localStorageKey, data[localStorageKey])
+    }
     onLoginCallback?.()
   }, [])
 
   const handleLogout = useCallback(() => {
     dispatch({ type: "LOGOUT" })
+    localStorage.removeItem(localStorageKey)
     onLogoutCallback?.()
   }, [])
 
@@ -81,7 +95,11 @@ export const AuthProvider = ({
     [state]
   )
 
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
+  return (
+    <AuthContext.Provider value={value}>
+      <Skeleton isLoaded={!validating}>{children}</Skeleton>
+    </AuthContext.Provider>
+  )
 }
 
 export const useMe = () => useContext(AuthContext).state
