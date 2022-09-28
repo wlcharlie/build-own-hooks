@@ -1,0 +1,117 @@
+---
+meta:
+  title: useClickOutside
+  description: A Hook to trigger callback when user clicks on outside of the target
+  tags: react, react-hook, ironman30
+---
+
+import {
+  Table,
+  Thead,
+  Tbody,
+  Tr,
+  Th,
+  Td,
+  TableContainer,
+  Code,
+} from "@chakra-ui/react"
+import PostTags from "~/components/PostTags"
+import LinkTag from "~/components/LinkTag"
+import Example from "~/libs/hooks/useClickOutside/Example"
+
+<PostTags tags={attributes.meta.tags} />
+
+# {attributes.meta.title}
+
+#### {attributes.meta.description}
+
+---
+
+<LinkTag />
+
+[鐵人賽連結](https://ithelp.ithome.com.tw/articles/10300435)
+
+---
+
+```
+function useClickOutside(cb) {
+  const ref = useRef()
+
+  useEffect(() => {
+    const handleClick = (event) => {
+      const target = event.target
+
+      const isInside = ref.current.contains(target)
+
+      if (!isInside) {
+        //do the job
+        cb()
+      }
+    }
+
+    document.addEventListener("click", handleClick)
+
+    return () => {
+      document.removeEventListener("click", handleClick)
+    }
+  }, [])
+
+  return ref
+}
+```
+
+#### Params
+
+<TableContainer bgColor="#00000010" borderRadius="4px">
+  <Table sx={{ "& *": { borderBottomColor: "#00000010!important" } }}>
+    <Thead>
+      <Tr>
+        <Th>name</Th>
+        <Th>type</Th>
+        <Th textAlign="right">description</Th>
+      </Tr>
+    </Thead>
+    <Tbody>
+      <Tr>
+        <Td>
+          <Code>cb</Code>
+        </Td>
+        <Td>
+          <Code>function</Code>
+        </Td>
+        <Td textAlign="right">callback function to fire on condition</Td>
+      </Tr>
+    </Tbody>
+  </Table>
+</TableContainer>
+
+#### Return
+
+<TableContainer bgColor="#00000010" borderRadius="4px">
+  <Table sx={{ "& *": { borderBottomColor: "#00000010!important" } }}>
+    <Thead>
+      <Tr>
+        <Th>name</Th>
+        <Th>type</Th>
+        <Th textAlign="right">description</Th>
+      </Tr>
+    </Thead>
+    <Tbody>
+      <Tr>
+        <Td>
+          <Code>ref</Code>
+        </Td>
+        <Td>
+          <Code>Object</Code>
+        </Td>
+        <Td textAlign="right">suppose to attach on DOM element</Td>
+      </Tr>
+    </Tbody>
+  </Table>
+</TableContainer>
+
+---
+
+## Example
+
+<Example />

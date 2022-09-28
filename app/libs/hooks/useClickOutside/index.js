@@ -1,6 +1,6 @@
 import { useRef, useEffect } from "react"
 
-export default function useOnOutSide(cb) {
+export default function useClickOutside(cb) {
   const ref = useRef()
 
   useEffect(() => {
