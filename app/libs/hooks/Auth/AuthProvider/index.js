@@ -16,7 +16,7 @@ const AuthContext = createContext()
 const authReducer = (state, action) => {
   switch (action.type.toUpperCase()) {
     case "LOGIN": {
-      return { ...action.payload, isAuth: true }
+      return { ...state, ...action.payload, isAuth: true }
     }
     case "LOGOUT": {
       return { isAuth: false }
@@ -29,15 +29,13 @@ const authReducer = (state, action) => {
 
 export const AuthProvider = ({
   children, //required
-  localStorageKey = "token",
   onLogin,
   onLogout,
   validation, // required
-  initValidation,
+  token,
+  deps = [],
   debug = false,
 }) => {
-  const location = useLocation()
-  console.log(location)
   const onLoginCallback = useEventRef(onLogin)
   const onLogoutCallback = useEventRef(onLogout)
   const [state, dispatch] = useReducer(authReducer, { isAuth: false })
@@ -49,23 +47,11 @@ export const AuthProvider = ({
   }
 
   useEffect(() => {
-    console.log("RE-VALI")
-    if (initValidation) {
-      initValidation()
-      return
-    }
-
-    const defaultValidation = async () => {
-      const storageToken = localStorage.getItem(localStorageKey)
-      if (!storageToken) {
-        handleLogout()
-        return
-      }
-
+    const validate = async () => {
       setValidating(true)
       try {
-        const data = await validation?.(storageToken)
-        dispatch({ type: "LOGIN", payload: data })
+        const data = await validation?.(token)
+        dispatch({ type: "LOGIN", payload: { ...data, token } })
       } catch (error) {
         console.log(error.message)
         handleLogout()
@@ -73,20 +59,16 @@ export const AuthProvider = ({
       setValidating(false)
     }
 
-    defaultValidation()
-  }, [location.pathname])
+    validate()
+  }, [state.isAuth, ...deps])
 
   const handleLogin = useCallback((data) => {
     dispatch({ type: "LOGIN", payload: data })
-    if (localStorageKey) {
-      localStorage.setItem(localStorageKey, data[localStorageKey])
-    }
-    onLoginCallback?.()
+    onLoginCallback?.(data)
   }, [])
 
   const handleLogout = useCallback(() => {
     dispatch({ type: "LOGOUT" })
-    localStorage.removeItem(localStorageKey)
     onLogoutCallback?.()
   }, [])
 

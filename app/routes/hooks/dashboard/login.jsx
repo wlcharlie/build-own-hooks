@@ -10,7 +10,7 @@ import {
 } from "@chakra-ui/react"
 import { useState } from "react"
 import { useAuth } from "~/libs/hooks/Auth/AuthProvider"
-import { getUser } from "~/libs/data/users"
+import { login } from "~/libs/data/users"
 
 export default function DashBoard() {
   const { handleLogin } = useAuth()
@@ -24,8 +24,8 @@ export default function DashBoard() {
     setLoading(true)
     setError(false)
     try {
-      const userData = await getUser(username)
-      handleLogin(userData)
+      const resData = await login(username)
+      handleLogin(resData)
     } catch (error) {
       console.log(error)
       setLoading(false)

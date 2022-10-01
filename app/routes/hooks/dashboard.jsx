@@ -7,11 +7,13 @@ import { getMe } from "~/libs/data/users"
 export default function DashBoardIndex() {
   const navigate = useNavigate()
 
-  const handleAfterLogin = () => {
+  const handleAfterLogin = (data) => {
+    localStorage.setItem("token", data.token)
     navigate("/hooks/dashboard/demo-1")
   }
 
   const handleToLoginPage = () => {
+    localStorage.removeItem("token")
     navigate("/hooks/dashboard/login")
   }
 
@@ -23,7 +25,7 @@ export default function DashBoardIndex() {
           onLogin={handleAfterLogin}
           onLogout={handleToLoginPage}
           validation={getMe}
-          localStorageKey="token"
+          token={localStorage.getItem("token")}
         >
           <Outlet />
         </AuthProvider>

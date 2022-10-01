@@ -34,7 +34,7 @@ const list = {
   "0015": "YT",
 }
 
-export const getUser = (username) => {
+export const login = (username) => {
   return new Promise((resolve, reject) => {
     const random = Math.floor(Math.random() * 10) + 1
     setTimeout(() => {
@@ -43,7 +43,7 @@ export const getUser = (username) => {
       }
 
       if (random > 3) {
-        resolve({ username, token: list[username] })
+        resolve({ token: list[username] })
         return
       }
 
@@ -63,7 +63,7 @@ export const getMe = (token) => {
         reject(new Error("Oops! User not existed!"))
       }
 
-      resolve({ username: list[token], token })
+      resolve({ username: list[token] })
       return
     }, 1000)
   })
