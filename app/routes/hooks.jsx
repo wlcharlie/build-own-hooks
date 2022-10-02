@@ -31,6 +31,7 @@ export const loader = async () => {
     "use-debounce",
     "use-throttle",
     "use-click-outside",
+    "use-tabs",
   ]
 
   const allPostsData = fileNames.map((fileName) => {

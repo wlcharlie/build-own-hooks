@@ -16,6 +16,13 @@ const tabsReducer = (state, action) => {
 
   switch (type.toUpperCase()) {
     case "ADD": {
+      if (state.storedTabs.some((tab) => tab.id === payload.id)) {
+        return {
+          ...state,
+          currentTab: payload.id,
+        }
+      }
+
       return {
         ...state,
         currentTab: payload.id,
@@ -27,14 +34,14 @@ const tabsReducer = (state, action) => {
 
       return {
         ...state,
-        currentTab: newStoredTabs.at(-1).id,
+        currentTab: newStoredTabs?.at(-1)?.id || null,
         storedTabs: newStoredTabs,
       }
     }
     case "NAVIGATE": {
       return {
         ...state,
-        currentTab: payload.id,
+        currentTab: payload,
       }
     }
     case "RESET": {
