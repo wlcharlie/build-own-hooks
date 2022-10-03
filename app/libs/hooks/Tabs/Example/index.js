@@ -7,7 +7,7 @@ import OrderItem from "./OrderItem"
 import OrderViewer from "./OrderViewer"
 import OrderPanel from "./OrderPanel"
 import OrderTab from "./OrderTab"
-console.log(data)
+
 export default function Example() {
   const [tabs, tabDispatch] = useTabs()
   const isEmpty = tabs.storedTabs.length === 0
@@ -42,6 +42,8 @@ export default function Example() {
                     isSelected={tab.id === tabs.currentTab}
                     onChoose={() => tabDispatch("NAVIGATE", tab.id)}
                     onClose={() => tabDispatch("REMOVE", tab.id)}
+                    onCloseAll={() => tabDispatch("RESET")}
+                    onCloseOthers={() => tabDispatch("ONLY", tab.id)}
                   >
                     <Text>{tab.no}</Text>
                   </OrderTab>

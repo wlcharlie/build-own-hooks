@@ -47,6 +47,14 @@ const tabsReducer = (state, action) => {
     case "RESET": {
       return initValue
     }
+    case "ONLY": {
+      const only = state.storedTabs.find((tab) => tab.id === payload)
+
+      return {
+        currentTab: payload,
+        storedTabs: only ? [only] : [],
+      }
+    }
     default: {
       throw new Error("[useTabs] dispatch has received non exist type")
     }

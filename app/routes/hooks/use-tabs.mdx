@@ -5,6 +5,16 @@ meta:
   tags: react, react-hook, ironman30
 ---
 
+import {
+  Table,
+  Thead,
+  Tbody,
+  Tr,
+  Th,
+  Td,
+  TableContainer,
+  Code,
+} from "@chakra-ui/react"
 import PostTags from "~/components/PostTags"
 import LinkTag from "~/components/LinkTag"
 import { Example } from "~/libs/hooks/Tabs"
@@ -19,8 +29,125 @@ import { Example } from "~/libs/hooks/Tabs"
 
 <LinkTag />
 
-[鐵人賽連結]()
+[鐵人賽連結](https://ithelp.ithome.com.tw/articles/10303463)
 
 ---
 
 <Example />
+
+---
+
+```jsx
+const [tabs, tabDispatch] = useTabs()
+```
+
+#### Return
+
+<TableContainer bgColor="#00000010" borderRadius="4px">
+  <Table sx={{ "& *": { borderBottomColor: "#00000010!important" } }}>
+    <Thead>
+      <Tr>
+        <Th>name</Th>
+        <Th>type</Th>
+        <Th textAlign="right">description</Th>
+      </Tr>
+    </Thead>
+    <Tbody>
+      <Tr>
+        <Td>
+          <Code>tabs</Code>
+        </Td>
+        <Td>
+          <Code>array</Code>
+        </Td>
+        <Td textAlign="right">With [currentTab, storedTabs]</Td>
+      </Tr>
+      <Tr>
+        <Td>
+          <Code>tabDispatch</Code>
+        </Td>
+        <Td>
+          <Code>function</Code>
+        </Td>
+        <Td textAlign="right"> tabDispatch(type, payload), see below</Td>
+      </Tr>
+    </Tbody>
+  </Table>
+</TableContainer>
+
+#### Method
+
+##### `tabDispatch(type, payload)`
+
+<TableContainer bgColor="#00000010" borderRadius="4px">
+  <Table sx={{ "& *": { borderBottomColor: "#00000010!important" } }}>
+    <Thead>
+      <Tr>
+        <Th>type</Th>
+        <Th>payload</Th>
+        <Th textAlign="right">description</Th>
+      </Tr>
+    </Thead>
+    <Tbody>
+      <Tr>
+        <Td>
+          <Code>ADD</Code>
+        </Td>
+        <Td>
+          <Code>{"{ id, ...restData }"}</Code>
+        </Td>
+        <Td textAlign="right" whiteSpace="pre-wrap">
+          {
+            "Must include an unique id. Please aware this is for display tabs information not for panel, should not include all date in it."
+          }
+        </Td>
+      </Tr>
+      <Tr>
+        <Td>
+          <Code>REMOVE</Code>
+        </Td>
+        <Td>
+          <Code>id</Code>
+        </Td>
+        <Td textAlign="right" whiteSpace="pre-wrap">
+          Remove a tab.
+        </Td>
+      </Tr>
+      <Tr>
+        <Td>
+          <Code>NAVIGATE</Code>
+        </Td>
+        <Td>
+          <Code>id</Code>
+        </Td>
+        <Td textAlign="right" whiteSpace="pre-wrap">
+          To nav to specific tab, should use when onClick on tab.
+        </Td>
+      </Tr>
+      <Tr>
+        <Td>
+          <Code>RESET</Code>
+        </Td>
+        <Td>
+          <Code></Code>
+        </Td>
+        <Td textAlign="right" whiteSpace="pre-wrap">
+          Clear all tabs.
+        </Td>
+      </Tr>
+      <Tr>
+        <Td>
+          <Code>ONLY</Code>
+        </Td>
+        <Td>
+          <Code>id</Code>
+        </Td>
+        <Td textAlign="right" whiteSpace="pre-wrap">
+          Clear all tabs except the given id.
+        </Td>
+      </Tr>
+    </Tbody>
+  </Table>
+</TableContainer>
+
+---
