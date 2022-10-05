@@ -16,7 +16,7 @@ const theme = extendTheme({
         scrollBehavior: "smooth",
       },
       body: {
-        backgroundColor: "#E5E5E5",
+        backgroundColor: "#E0E0E0",
         fontFamily: `'Inter', 'Noto Sans TC', sans-serif`,
       },
       hr: {
