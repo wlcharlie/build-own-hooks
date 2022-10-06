@@ -1,0 +1,265 @@
+---
+meta:
+  title: useDates
+  description: A hook aims for manipulate two dates.
+  tags: react, react-hook, ironman30
+---
+
+import {
+  Table,
+  Thead,
+  Tbody,
+  Tr,
+  Th,
+  Td,
+  TableContainer,
+  Code,
+} from "@chakra-ui/react"
+import PostTags from "~/components/PostTags"
+import LinkTag from "~/components/LinkTag"
+import Example from "~/libs/hooks/useDates/Example"
+
+<PostTags tags={attributes.meta.tags} />
+
+# {attributes.meta.title}
+
+#### {attributes.meta.description}
+
+---
+
+<LinkTag />
+[鐵人賽文章](https://ithelp.ithome.com.tw/articles/10305216)
+
+```jsx
+const [date, dateDispatch] = useDate(configs)
+
+//implented with [`date-fns`](https://date-fns.org/)
+```
+
+### libs
+
+[`date-fns`](https://date-fns.org/)
+
+#### Configs
+
+<TableContainer bgColor="#00000010" borderRadius="4px">
+  <Table sx={{ "& *": { borderBottomColor: "#00000010!important" } }}>
+    <Thead>
+      <Tr>
+        <Th>name</Th>
+        <Th>type</Th>
+        <Th>default</Th>
+        <Th textAlign="right">description</Th>
+      </Tr>
+    </Thead>
+    <Tbody>
+      <Tr>
+        <Td>
+          <Code>defaultDate</Code>
+        </Td>
+        <Td>
+          <Code>Date Object | string</Code>
+        </Td>
+        <Td>null</Td>
+        <Td textAlign="right"></Td>
+      </Tr>
+      <Tr>
+        <Td>
+          <Code>formatPattern</Code>
+        </Td>
+        <Td>
+          <Code>string</Code>
+        </Td>
+        <Td>yyyy-MM-dd</Td>
+        <Td textAlign="right">see date-fns doc</Td>
+
+      </Tr>
+      <Tr>
+        <Td>
+          <Code>transitionUnit</Code>
+        </Td>
+        <Td>
+          <Code>string</Code>
+        </Td>
+        <Td>days</Td>
+        <Td textAlign="right">see date-fns doc</Td>
+      </Tr>
+      <Tr>
+        <Td>
+          <Code>offsetUnit</Code>
+        </Td>
+        <Td>
+          <Code>string</Code>
+        </Td>
+        <Td>days</Td>
+        <Td textAlign="right"> see date-fns doc</Td>
+      </Tr>
+      <Tr>
+        <Td>
+          <Code>offsetValue</Code>
+        </Td>
+        <Td>
+          <Code>number</Code>
+        </Td>
+        <Td>0</Td>
+        <Td textAlign="right"></Td>
+      </Tr>
+    </Tbody>
+
+  </Table>
+</TableContainer>
+
+#### Return
+
+<TableContainer bgColor="#00000010" borderRadius="4px">
+  <Table sx={{ "& *": { borderBottomColor: "#00000010!important" } }}>
+    <Thead>
+      <Tr>
+        <Th>name</Th>
+        <Th>type</Th>
+        <Th textAlign="right">description</Th>
+      </Tr>
+    </Thead>
+    <Tbody>
+      <Tr>
+        <Td>
+          <Code>date</Code>
+        </Td>
+        <Td>
+          <Code>string</Code>
+        </Td>
+        <Td textAlign="right"></Td>
+      </Tr>
+      <Tr>
+        <Td>
+          <Code>dateDispatch</Code>
+        </Td>
+        <Td>
+          <Code>function</Code>
+        </Td>
+        <Td textAlign="right"> dateDispatch(type, payload), see below</Td>
+      </Tr>
+    </Tbody>
+  </Table>
+</TableContainer>
+
+#### Method
+
+##### `dateDispatch(type, payload)`
+
+<TableContainer bgColor="#00000010" borderRadius="4px">
+  <Table sx={{ "& *": { borderBottomColor: "#00000010!important" } }}>
+    <Thead>
+      <Tr>
+        <Th>type</Th>
+        <Th>payload</Th>
+        <Th textAlign="right">description</Th>
+      </Tr>
+    </Thead>
+    <Tbody>
+      <Tr>
+        <Td>
+          <Code>BACKWARD</Code>
+        </Td>
+        <Td>
+          <Code>number | void</Code>
+        </Td>
+        <Td textAlign="right" whiteSpace="pre-wrap">
+          payload default as 1 when not provided
+        </Td>
+      </Tr>
+      <Tr>
+        <Td>
+          <Code>FORWARD</Code>
+        </Td>
+        <Td>
+          <Code>number | void</Code>
+        </Td>
+        <Td textAlign="right" whiteSpace="pre-wrap">
+          payload default as 1 when not provided
+        </Td>
+      </Tr>
+      <Tr>
+        <Td>
+          <Code>NOW</Code>
+        </Td>
+        <Td>
+          <Code></Code>
+        </Td>
+        <Td textAlign="right" whiteSpace="pre-wrap">
+          To NOW
+        </Td>
+      </Tr>
+      <Tr>
+        <Td>
+          <Code>TO</Code>
+        </Td>
+        <Td>
+          <Code>Date Object | string</Code>
+        </Td>
+        <Td textAlign="right" whiteSpace="pre-wrap">
+          To specific date
+        </Td>
+      </Tr>
+    </Tbody>
+  </Table>
+</TableContainer>
+
+---
+
+---
+
+### Default Config
+
+<Example />
+```jsx
+const defaultConfigs = {
+  defaultDate: null,
+  formatPattern: "yyyy-MM-dd",
+  transitionUnit: "days",
+  offsetUnit: "days",
+  offsetValue: 0,
+  durationUnit: "days",
+  durationDateOnIssue: 0, // 0 | 1 | 2
+  minDuration: 0,
+  maxDuration: 0,
+  noPastDate: false,
+  noFutureDate: false,
+  noGreaterThenSecondDate: false,
+}
+```
+---
+
+### Custom Config
+
+<Example configs={{
+  defaultDate: null,
+  formatPattern: "yyyy-MM-dd",
+  transitionUnit: "days",
+  offsetUnit: "days",
+  offsetValue: 0,
+  durationUnit: "days",
+  durationDateOnIssue: 2, // 0 | 1 | 2
+  minDuration: 5,
+  maxDuration: 0,
+  noPastDate: true,
+  noFutureDate: false,
+  noGreaterThenSecondDate: false,
+}}/>
+```jsx
+const defaultConfigs = {
+  defaultDate: null,
+  formatPattern: "yyyy-MM-dd",
+  transitionUnit: "days",
+  offsetUnit: "days",
+  offsetValue: 0,
+  durationUnit: "days",
+  durationDateOnIssue: 2, // 0 | 1 | 2
+  minDuration: 5,
+  maxDuration: 0,
+  noPastDate: false,
+  noFutureDate: false,
+  noGreaterThenSecondDate: false,
+}
+```
+---
