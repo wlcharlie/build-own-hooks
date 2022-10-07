@@ -1,0 +1,45 @@
+---
+meta:
+  title: useImage
+  description: A hook to preview image after uploading.
+  tags: react, react-hook, ironman30
+---
+
+import {
+  Table,
+  Thead,
+  Tbody,
+  Tr,
+  Th,
+  Td,
+  TableContainer,
+  Code,
+} from "@chakra-ui/react"
+import PostTags from "~/components/PostTags"
+import LinkTag from "~/components/LinkTag"
+import Example from "~/libs/hooks/Image/Example"
+
+<PostTags tags={attributes.meta.tags} />
+
+# {attributes.meta.title}
+
+#### {attributes.meta.description}
+
+---
+
+<LinkTag />
+
+[鐵人賽連結](https://ithelp.ithome.com.tw/articles/10305728)
+
+---
+
+```jsx
+const { image, handleUpload, handleRemove, inputRef } = useImage()
+
+const { images, handleUpload, handleRemove, handleClearAll, inputRef } =
+  useImages()
+```
+
+---
+
+<Example />
