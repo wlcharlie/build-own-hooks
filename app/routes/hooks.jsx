@@ -35,6 +35,7 @@ export const loader = async () => {
     "use-date",
     "use-dates",
     "use-image",
+    "use-capture",
   ]
 
   const allPostsData = fileNames.map((fileName) => {

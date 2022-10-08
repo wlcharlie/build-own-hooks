@@ -1,0 +1,41 @@
+---
+meta:
+  title: useCapture
+  description: A hook for capture html to canvas.
+  tags: react, react-hook, ironman30
+---
+
+import {
+  Table,
+  Thead,
+  Tbody,
+  Tr,
+  Th,
+  Td,
+  TableContainer,
+  Code,
+} from "@chakra-ui/react"
+import PostTags from "~/components/PostTags"
+import LinkTag from "~/components/LinkTag"
+import Example from "~/libs/hooks/useCapture/Example"
+
+<PostTags tags={attributes.meta.tags} />
+
+# {attributes.meta.title}
+
+#### {attributes.meta.description}
+
+---
+
+<LinkTag />
+[鐵人賽文章]()
+
+---
+
+```jsx
+const [ref, handleCapture] = useCapture()
+```
+
+---
+
+<Example />
