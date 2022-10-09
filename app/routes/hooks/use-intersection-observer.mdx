@@ -1,0 +1,45 @@
+---
+meta:
+  title: useIntersectionObserver
+  description: A hook to add intersectionObserver with element.
+  tags: react, react-hook, ironman30
+---
+
+import {
+  Table,
+  Thead,
+  Tbody,
+  Tr,
+  Th,
+  Td,
+  TableContainer,
+  Code,
+} from "@chakra-ui/react"
+import PostTags from "~/components/PostTags"
+import LinkTag from "~/components/LinkTag"
+import Example from "~/libs/hooks/useInView/Example"
+
+<PostTags tags={attributes.meta.tags} />
+
+# {attributes.meta.title}
+
+#### {attributes.meta.description}
+
+---
+
+<LinkTag />
+[鐵人賽文章](https://ithelp.ithome.com.tw/articles/10306523)
+
+---
+
+```jsx
+const ref = useIntersectionObserver(callback, options)
+```
+
+```jsx
+const [ref, isInView] = useInView(options)
+```
+
+---
+
+<Example />
